@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
-public static class MainActivity extends AppCompatActivity {
+import accountGestions.Service_account_manager;
+
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,11 @@ public static class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * ouvre l'activié principal
+     */
     public void openActivity() {
-        Intent intent = new Intent(this, activity_question_home.class);
+        Intent intent = new Intent(this, contactsListe.class);
         startActivity(intent);
     }
 

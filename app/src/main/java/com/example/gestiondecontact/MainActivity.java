@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
      * ouvre l'activié principal
      */
     public void openActivity() {
-        Intent intent = new Intent(this, listeContactes.class);
+        Intent intent = new Intent(this, contactsListe.class);
         startActivity(intent);
     }
 

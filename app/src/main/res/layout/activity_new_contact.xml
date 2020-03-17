@@ -44,7 +44,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -52,7 +52,7 @@
             android:text="Nom" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/prenom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -60,7 +60,7 @@
             android:text="Prenom" />
 
         <EditText
-            android:id="@+id/editText8"
+            android:id="@+id/telephonePortable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -68,7 +68,7 @@
             android:text="téléphone portable" />
 
         <EditText
-            android:id="@+id/editText9"
+            android:id="@+id/telephoneFixe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -76,7 +76,7 @@
             tools:text="téléphone fixe" />
 
         <EditText
-            android:id="@+id/editText10"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -84,7 +84,7 @@
             android:text="E-mail" />
 
         <EditText
-            android:id="@+id/editText11"
+            android:id="@+id/dateDeNaiscance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -92,7 +92,7 @@
             android:text="date de naiscance" />
 
         <EditText
-            android:id="@+id/editText12"
+            android:id="@+id/addresse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

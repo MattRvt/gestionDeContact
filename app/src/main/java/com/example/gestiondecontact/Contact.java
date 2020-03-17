@@ -20,18 +20,9 @@ public class Contact {
         this.addresse = addresse;
     }
 
+    public Contact() {
 
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
     public void setNom(String nom) {

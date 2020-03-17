@@ -25,7 +25,6 @@ public class activity_new_account extends AppCompatActivity {
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, "compte correctement ajouté", duration);
             toast.show();
-
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("mail",getMail());
             intent.putExtra("password",getPassWord());

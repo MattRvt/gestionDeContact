@@ -20,7 +20,8 @@ public class newContact extends AppCompatActivity {
 
     public void valide(View v) {
         //sauvgarde le contacte
-        Service_contacts_manager contacts = Service_contacts_manager.getInstance();
+        ContactsManager contacts = new ContactsManager(this);
+        contacts.open();
         EditText textEdit;
 
          textEdit = (EditText) findViewById(R.id.nom);
@@ -44,9 +45,9 @@ public class newContact extends AppCompatActivity {
         textEdit = (EditText) findViewById(R.id.addresse);
         String addresse = textEdit.getText().toString();
 
-        Contact contact = new Contact(nom, prenom, telephonePortable, telephoneFixe, email, dateDeNaiscance, addresse)
+        Contact contact = new Contact(nom, prenom, telephonePortable, telephoneFixe, email, dateDeNaiscance, addresse);
 
-        contacts.addOrUpdateContact(contact);
+        contacts.addContact(contact);
 
         finish();
     }

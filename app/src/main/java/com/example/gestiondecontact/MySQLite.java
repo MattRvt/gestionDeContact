@@ -3,6 +3,7 @@ package com.example.gestiondecontact;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class MySQLite extends SQLiteOpenHelper {
 
@@ -19,11 +20,12 @@ public class MySQLite extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Création de la base de données
         // on exécute ici les requêtes de création des tables
-        sqLiteDatabase.execSQL(ContactsManager.CREATE_TABLE_ANIMAL); // création table "animal"
+        sqLiteDatabase.execSQL(ContactsManager.CREATE_TABLE); // création table "contactes"
     }
 
     @Override

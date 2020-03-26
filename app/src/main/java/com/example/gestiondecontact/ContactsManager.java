@@ -39,7 +39,7 @@ public class ContactsManager {
     public ContactsManager(Context context) {
         maBaseSQLite = MySQLite.getInstance(context);
         this.open();
-       // maBaseSQLite.onCreate(db);
+        // maBaseSQLite.onCreate(db);
     }
 
     public void open() {
@@ -57,25 +57,30 @@ public class ContactsManager {
         ContentValues values = new ContentValues();
 
         values.put(KEY_NOM, contact.getNom());
-        values.put(KEY_prenom,contact.getPrenom());
-        values.put(KEY_telephonePortable,contact.getTelephonePortable());
-        values.put(KEY_telephoneFixe,contact.getTelephoneFixe());
-        values.put(KEY_email,contact.getEmail());
-        values.put(KEY_dateDeNaiscance,contact.getDateDeNaiscance());
-        values.put(KEY_addresse,contact.getAddresse());
-
+        values.put(KEY_prenom, contact.getPrenom());
+        values.put(KEY_telephonePortable, contact.getTelephonePortable());
+        values.put(KEY_telephoneFixe, contact.getTelephoneFixe());
+        values.put(KEY_email, contact.getEmail());
+        values.put(KEY_dateDeNaiscance, contact.getDateDeNaiscance());
+        values.put(KEY_addresse, contact.getAddresse());
 
 
         // insert() retourne l'id du nouvel enregistrement inséré, ou -1 en cas d'erreur
         return db.insert(TABLE_NAME, null, values);
     }
 
-    public int modContact(Contact contact) {
+    public int updateContact(Contact contact) {
         // modification d'un enregistrement
         // valeur de retour : (int) nombre de lignes affectées par la requête
 
         ContentValues values = new ContentValues();
         values.put(KEY_NOM, contact.getNom());
+        values.put(KEY_prenom, contact.getPrenom());
+        values.put(KEY_telephonePortable, contact.getTelephonePortable());
+        values.put(KEY_telephoneFixe, contact.getTelephoneFixe());
+        values.put(KEY_email, contact.getEmail());
+        values.put(KEY_dateDeNaiscance, contact.getDateDeNaiscance());
+        values.put(KEY_addresse, contact.getAddresse());
 
         String where = KEY_ID + " = ?";
         String[] whereArgs = {contact.getID() + ""};
@@ -94,7 +99,7 @@ public class ContactsManager {
     }
 
     public Contact getContact(int id) {
-        // Retourne l'animal dont l'id est passé en paramètre
+        // Retourne le contact dont l'id est passé en paramètre
 
         Contact a = new Contact();
 
@@ -102,6 +107,12 @@ public class ContactsManager {
         if (c.moveToFirst()) {
             a.setID(c.getInt(c.getColumnIndex(KEY_ID)));
             a.setNom(c.getString(c.getColumnIndex(KEY_NOM)));
+            a.setAddresse(c.getString(c.getColumnIndex(KEY_addresse)));
+            a.setDateDeNaiscance(c.getString(c.getColumnIndex(KEY_dateDeNaiscance)));
+            a.setEmail(c.getString(c.getColumnIndex(KEY_email)));
+            a.setPrenom(c.getString(c.getColumnIndex(KEY_prenom)));
+            a.setTelephoneFixe(c.getString(c.getColumnIndex(KEY_telephoneFixe)));
+            a.setTelephonePortable(c.getString(c.getColumnIndex(KEY_telephonePortable)));
             c.close();
         }
 

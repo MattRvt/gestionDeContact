@@ -8,7 +8,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -35,18 +37,6 @@ public class listeContactes extends AppCompatActivity {
             }
         });
 
-
-
-        /*
-        TODO: code inutile ?
-        Button back = (Button) findViewById(R.id.btnBack);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(listeContactes.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });*/
     }
 
     private void loadContacts(){
@@ -54,9 +44,24 @@ public class listeContactes extends AppCompatActivity {
         ArrayList<HashMap<String, String>> userList = contactsManager.getContacts();
         String[] from = new String[contactsManager.getContactsAtributs().size()];
         from = contactsManager.getContactsAtributs().toArray(from);
-        ListAdapter adapter = new SimpleAdapter(listeContactes.this, userList, R.layout.list_row, from, new int[]{R.id.name, R.id.designation,R.id.location}); //TODO: modif dernier parametre
+
+        ListAdapter adapter = new SimpleAdapter(listeContactes.this, userList, R.layout.list_row, from, new int[]{0,R.id.nom, R.id.prenom});
         ListView lv = (ListView) findViewById(R.id.user_list);
         lv.setAdapter(adapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Log.e("LISTVIEW: ", "position= " + position + " id= "+ id);
+                DisplayContact(position+1);
+
+            }
+        });
+    }
+
+    private void DisplayContact(int position) {
+        Intent intent = new Intent(this, loadContact.class);
+        intent.putExtra("CONTACT_ID", position);
+        startActivity(intent);
     }
 
     @Override

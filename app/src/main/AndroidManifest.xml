@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gestiondecontact">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +24,6 @@
 
 
 
-
         <activity
             android:name=".listeContactes"
             android:label="@string/title_activity_liste_contactes"
@@ -29,7 +31,7 @@
 
         </activity>
         <activity android:name=".newContact" />
-        <activity android:name=".loadContact"/>
+        <activity android:name=".loadContact" />
         <activity android:name=".activity_new_account" />
 
         <activity android:name=".MainActivity">

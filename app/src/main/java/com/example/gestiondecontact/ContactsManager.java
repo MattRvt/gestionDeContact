@@ -119,11 +119,21 @@ public class ContactsManager {
         return a;
     }
 
-    public ArrayList<HashMap<String, String>> getContacts() {
+    /**
+     * @param orderParam nom de la colomne pour le tri
+     * @param desc       true pour tri decroissant
+     * @return la liste des contactes
+     */
+    public ArrayList<HashMap<String, String>> getContacts(String orderParam, Boolean desc) {
         // sélection de tous les enregistrements de la table
         this.open();
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
-        Cursor c = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor c;
+        if (desc) {
+             c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " order by " + orderParam + " DESC ", null);
+        } else {
+             c = db.rawQuery("SELECT * FROM " + TABLE_NAME + " order by " + orderParam, null);
+        }
         //get liste of colomne
         ArrayList<String> attributs = this.getContactsAtributs();
         while (c.moveToNext()) {

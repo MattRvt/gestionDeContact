@@ -19,6 +19,8 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static com.example.gestiondecontact.ContactsManager.KEY_NOM;
+
 public class listeContactes extends AppCompatActivity {
 
     @Override
@@ -41,7 +43,7 @@ public class listeContactes extends AppCompatActivity {
 
     private void loadContacts(){
         ContactsManager contactsManager = new ContactsManager(this);
-        ArrayList<HashMap<String, String>> userList = contactsManager.getContacts();
+        ArrayList<HashMap<String, String>> userList = contactsManager.getContacts(KEY_NOM,true);
         String[] from = new String[contactsManager.getContactsAtributs().size()];
         from = contactsManager.getContactsAtributs().toArray(from);
 

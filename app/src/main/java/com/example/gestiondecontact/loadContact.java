@@ -1,5 +1,8 @@
 package com.example.gestiondecontact;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,8 +10,20 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class loadContact extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
+public class loadContact extends AppCompatActivity implements OnMapReadyCallback{
+    public GoogleMap map;
     private int contactID;
 
     @Override
@@ -17,7 +32,43 @@ public class loadContact extends AppCompatActivity {
         setContentView(R.layout.activity_new_contact);
         Bundle extras = getIntent().getExtras();
         this.contactID = extras.getInt("CONTACT_ID");
+
+        // Get the SupportMapFragment and request notification
+        // when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         loadValues();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        EditText textEdit = (EditText) findViewById(R.id.addresse);
+        String addresse = textEdit.getText().toString();
+        upDateMap(addresse);
+    }
+
+    private void upDateMap(String addresse) {
+        map.clear();
+        Context context = this;
+
+        Geocoder geocoder = new Geocoder(context);
+
+        List<Address> list = null;
+        try {
+            list = geocoder.getFromLocationName(addresse, 1);
+            if (!list.isEmpty()) {
+                double latitude = list.get(0).getLatitude();
+                double longitude = list.get(0).getLongitude();
+                map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     private void loadValues() {
@@ -88,4 +139,6 @@ public class loadContact extends AppCompatActivity {
         Log.i("BDD", i + " lignes modifier");
         finish();
     }
+
+
 }

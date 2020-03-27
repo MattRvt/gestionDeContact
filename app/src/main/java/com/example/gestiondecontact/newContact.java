@@ -2,17 +2,87 @@ package com.example.gestiondecontact;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.DialogInterface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-public class newContact extends AppCompatActivity {
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.List;
+
+public class newContact extends AppCompatActivity implements OnMapReadyCallback {
+
+    public GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_contact);
+
+        // Get the SupportMapFragment and request notification
+        // when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+
+        EditText searchTo = (EditText) findViewById(R.id.addresse);
+        searchTo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                EditText textEdit = (EditText) findViewById(R.id.addresse);
+                String addresse = textEdit.getText().toString();
+                upDateMap(addresse);
+
+            }
+        });
+
     }
+
+    private void upDateMap(String addresse) {
+        map.clear();
+        Context context = this;
+
+        Geocoder geocoder = new Geocoder(context);
+
+        List<Address> list = null;
+        try {
+            list = geocoder.getFromLocationName(addresse, 1);
+            if (!list.isEmpty()) {
+                double latitude = list.get(0).getLatitude();
+                double longitude = list.get(0).getLongitude();
+                map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)));
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 
     public void annuler(View v) {
         finish();
@@ -24,7 +94,7 @@ public class newContact extends AppCompatActivity {
         contacts.open();
         EditText textEdit;
 
-         textEdit = (EditText) findViewById(R.id.nom);
+        textEdit = (EditText) findViewById(R.id.nom);
         String nom = textEdit.getText().toString();
 
         textEdit = (EditText) findViewById(R.id.prenom);
@@ -50,5 +120,11 @@ public class newContact extends AppCompatActivity {
         contacts.addContact(contact);
 
         finish();
+    }
+
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.map = googleMap;
     }
 }
